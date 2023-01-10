@@ -17,4 +17,4 @@
 
 ## Preview
 
-[Preview](https://github.com/zingxy/auth-example)
+页面预览[Preview](https://react-auth-example-ashy.vercel.app/)，完整流程需要配置后端。
