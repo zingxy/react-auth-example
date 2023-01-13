@@ -3,8 +3,11 @@ import { Form, Input, Button, Typography } from 'antd';
 const { Title } = Typography;
 
 import { Navigate, useLocation, useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
 
 import useAuth from '../hooks/useAuth';
+import * as API from '../service';
+
 export default function Login() {
   const auth = useAuth();
   const navigate = useNavigate();
@@ -29,7 +32,18 @@ export default function Login() {
           onFinish={({ username, password }) => {
             auth
               .login(username, password)
-              .then((value) => {
+              .then(({ code, msg, token, id, username, roles }) => {
+                auth.setAuth((auth) => {
+                  return {
+                    ...auth,
+                    user: {
+                      username,
+                      id,
+                      role: roles,
+                    },
+                  };
+                });
+
                 navigate(from, { replace: true });
               })
               .catch((err) => {});

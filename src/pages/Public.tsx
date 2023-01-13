@@ -1,7 +1,7 @@
 export default function Public() {
   return (
     <div>
-      <h1>Ldd管理系统正在开发中</h1>
+      <h1>A simple authentication example with Roles using React</h1>
     </div>
   );
 }

@@ -1,10 +1,12 @@
 import React, { createContext, useState } from 'react';
 import { ROLES } from '../routes';
 
+import * as API from '../service';
+
 interface AuthType {
   user: { username: string; id: string; role: ROLES[] } | null;
-  login: (name: string, password: string) => Promise<void>;
-  logout: () => Promise<void>;
+  login: (name: string, password: string) => Promise<API.SignInResponseData>;
+  logout: () => Promise<API.SingOutResponseData>;
 }
 
 type AuthContextType = AuthType & {
@@ -13,15 +15,21 @@ type AuthContextType = AuthType & {
 
 export const AuthContext = createContext<AuthContextType>({
   user: null,
-  async login() {},
-  async logout() {},
+  async login(username, password) {
+    return {} as API.SignInResponseData;
+  },
+  async logout() {
+    return {} as API.SingOutResponseData;
+  },
   setAuth() {},
 });
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [auth, setAuth] = useState<AuthType>({
     user: null,
-    async login(name, password) {},
+    async login(username, password) {
+      return API.signin(username, password);
+    },
     async logout() {
       setAuth((auth) => {
         return {
@@ -29,6 +37,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
           user: null,
         };
       });
+      return API.signout();
     },
   });
 

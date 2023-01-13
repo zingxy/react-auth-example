@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import { Outlet, Link, useLocation } from 'react-router-dom';
 
@@ -13,7 +13,13 @@ import {
 import AuthStatus from '../components/AuthStatus';
 
 const { Header, Content, Sider } = AntdLayout;
+import * as API from '../service';
+
 export default function Layout() {
+  useEffect(() => {
+    console.log('123');
+  });
+
   const location = useLocation();
 
   const getMenuItem = (
